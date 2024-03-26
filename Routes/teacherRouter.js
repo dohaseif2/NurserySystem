@@ -3,11 +3,12 @@ const controller = require("./../Controller/teacherController");
 const {insertValidator,updateValidator,deleteValidator} = require("../Midelwares/validations/teacherValidator");
 const validateResult = require("./../Midelwares/validations/validationResult");
 const { isAuth } = require("./../Midelwares/authMW");
-
+const {changePasswordValidator}=require("./../Midelwares/validations/passwordValidator");
 const router = express.Router();
 
-    router.get("/teachers/supervisors", controller.getAllSupervisors);
+router.get("/teachers/supervisors", controller.getAllSupervisors);
 
+router.post("/teachers/:id/change-password",isAuth, changePasswordValidator, validateResult, controller.changePassword);
 
 router
     .route("/teachers")

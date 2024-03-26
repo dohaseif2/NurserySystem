@@ -84,3 +84,30 @@ exports.getAllSupervisors = (req, res, next) => {
       next(error);
     });
 };
+
+
+
+exports.changePassword = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { oldPassword, newPassword } = req.body;
+
+    const teacher = await Teacher.findById(id);
+    if (!teacher) {
+      return res.status(404).json({ error: "Teacher not found" });
+    }
+
+    const isPasswordMatch = await bcrypt.compare(oldPassword, teacher.password);
+    if (!isPasswordMatch) {
+      return res.json({ error: "Incorrect old password" });
+    }
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+    await Teacher.findByIdAndUpdate(id, { password: hashedNewPassword });
+
+    res.status(200).json({ message: "Password changed successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
