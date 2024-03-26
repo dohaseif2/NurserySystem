@@ -23,8 +23,10 @@ const childSchema = new mongoose.Schema({
   level: { type: String, enum: ["PreKG", "KG1", "KG2"] , required: true},
   address: {
     type: addressSchema,
-    // required: true
+    required: true
   },
+  image: { type: String },
+
 });
 
 childSchema.plugin(AutoIncrement, { id: 'child_counter' });

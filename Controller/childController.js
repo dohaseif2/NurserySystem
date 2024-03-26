@@ -31,6 +31,7 @@ exports.insertChild = (req, res, next) => {
         fullName: req.body.fullName,
         age: req.body.age,
         level: req.body.level,
+        image: req.file.filename,
         address: {
           city: req.body.address.city,
           street: req.body.address.street,
