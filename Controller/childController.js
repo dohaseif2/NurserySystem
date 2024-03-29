@@ -49,26 +49,31 @@ exports.insertChild = (req, res, next) => {
 };
 
 exports.updateChild = (req, res, next) => {
-  Child.findByIdAndUpdate(req.body.id,{
-    $set:{
-    fullName:req.body.fullName,
-    age:req.body.age,
-    level:req.body.level,
-    // address: {
-    //   city: req.body.address.city,
-    //   street: req.body.address.street,
-    //   building: req.body.address.building
-    // }  
-    }
-  })
-  .then(data=>{
-    if(data==null){
-      throw new Error("Child is not found") 
-    }
-    res.status(200).json({ data: "updated", data});
-  })
-  .catch(error=>next(error))
+  let updateData = {
+      fullName: req.body.fullName,
+      age: req.body.age,
+      level: req.body.level,
+      address: { 
+          city: req.body.address.city,
+          street: req.body.address.street,
+          building: req.body.address.building
+      }
+  };
+
+  if (req.file) {
+      updateData.image = req.file.filename;
+  }
+
+  Child.findByIdAndUpdate(req.params.id, { $set: updateData }, { new: true }) 
+      .then(data => {
+          if (!data) {
+              throw new Error("Child is not found");
+          }
+          res.status(200).json({ data: "updated", data });
+      })
+      .catch(error => next(error));
 };
+
 exports.deleteChild = (req, res, next) => {
   Child.findByIdAndDelete(req.body.id)
   .then(data=>{

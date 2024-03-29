@@ -1,5 +1,6 @@
 const Teacher = require("./../Models/teacherSchema");
 const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
 const saltRounds = 10;
 
 exports.getAllTeachers = (req, res, next) => {
@@ -46,12 +47,16 @@ exports.insertTeacher = (req, res, next) => {
   });
 };
 exports.updateTeacher = (req, res, next) => {
-  Teacher.findByIdAndUpdate(req.body.id, {
+  let token = req.get("authorization");
+    token = token.split(" ")[1];
+    const decoded_token = jwt.verify(token, "os track");
+    const { id } = decoded_token;
+  Teacher.findByIdAndUpdate(id, {
     $set: {
       fullName: req.body.fullName,
       password: req.body.password,
       email: req.body.email,
-      image: req.body.image,
+      image: req.file.filename,
       supervisor: req.body.supervisor,
     },
   })
@@ -86,10 +91,13 @@ exports.getAllSupervisors = (req, res, next) => {
 };
 
 
-
 exports.changePassword = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    let token = req.get("authorization");
+    token = token.split(" ")[1];
+    const decoded_token = jwt.verify(token, "os track");
+    const { id } = decoded_token;
+    
     const { oldPassword, newPassword } = req.body;
 
     const teacher = await Teacher.findById(id);
@@ -99,7 +107,7 @@ exports.changePassword = async (req, res, next) => {
 
     const isPasswordMatch = await bcrypt.compare(oldPassword, teacher.password);
     if (!isPasswordMatch) {
-      return res.json({ error: "Incorrect old password" });
+      return res.status(400).json({ error: "Incorrect old password" });
     }
 
     const hashedNewPassword = await bcrypt.hash(newPassword, 10);

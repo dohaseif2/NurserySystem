@@ -3,25 +3,26 @@ const express = require("express");
 const controller = require("./../Controller/classController");
 const {insertValidator,updateValidator,deleteValidator} = require("../Midelwares/validations/classValidator"); 
 const validateResult = require("./../Midelwares/validations/validationResult");
+const { isAuth, isAdmin } = require("./../Midelwares/authMW");
 
 const router = express.Router();
 
-router.get("/class/teacher/:id", controller.getClassTeacher);
-router.get("/class/child/:id", controller.getClassChildernInfo);
+router.get("/class/teacher/:id",isAuth, controller.getClassTeacher);
+router.get("/class/child/:id",isAuth, controller.getClassChildernInfo);
 
 router
     .route('/class')
-    .get(controller.getAllClass)
-    .post(insertValidator,validateResult, controller.insertClass)
-    .put(updateValidator,validateResult, controller.updateClass)
-    .delete(deleteValidator,validateResult,controller.deleteClass);
+    .get(isAuth,controller.getAllClass)
+    .post(isAdmin,insertValidator,validateResult, controller.insertClass)
+    .put(isAdmin,updateValidator,validateResult, controller.updateClass)
+    .delete(isAdmin,deleteValidator,validateResult,controller.deleteClass);
 
 
 router 
     .route("/class/:id")
-    .get(controller.getClassById)
-    .put(updateValidator,validateResult, controller.updateClass)
-    .delete(deleteValidator,validateResult,controller.deleteClass);
+    .get(isAdmin,controller.getClassById)
+    .put(isAdmin,updateValidator,validateResult, controller.updateClass)
+    .delete(isAdmin,deleteValidator,validateResult,controller.deleteClass);
 
 
 module.exports = router;

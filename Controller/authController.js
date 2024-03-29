@@ -21,6 +21,7 @@ exports.login = (req, res, next) => {
           {
             fullName: teacher.fullName,
             role: teacher.role,
+            id: teacher.id
           },
           process.env.SECRET_KEY,
           { expiresIn: "1hr" }

@@ -2,25 +2,27 @@ const express = require("express");
 const controller = require("./../Controller/teacherController");
 const {insertValidator,updateValidator,deleteValidator} = require("../Midelwares/validations/teacherValidator");
 const validateResult = require("./../Midelwares/validations/validationResult");
-const { isAuth } = require("./../Midelwares/authMW");
+const { isAuth, isAdmin ,isTeacher } = require("./../Midelwares/authMW");
 const {changePasswordValidator}=require("./../Midelwares/validations/passwordValidator");
 const router = express.Router();
 
-router.get("/teachers/supervisors", controller.getAllSupervisors);
+router.get("/teachers/supervisors",isAuth, controller.getAllSupervisors);
 
-router.post("/teachers/:id/change-password",isAuth, changePasswordValidator, validateResult, controller.changePassword);
+router.patch("/teachers/changePassword", isTeacher , changePasswordValidator, validateResult, controller.changePassword);
 
 router
     .route("/teachers")
     .get(isAuth,controller.getAllTeachers)
     .post(insertValidator,validateResult, controller.insertTeacher)
-    .put(updateValidator,controller.updateTeacher)
-    .delete(deleteValidator,controller.deleteTeacher)
+    .put(isAdmin,updateValidator,validateResult,controller.updateTeacher)
+    .delete(isAdmin,deleteValidator,validateResult,controller.deleteTeacher)
+
 router 
     .route("/teachers/:id")
-    .get(controller.getTeacherById)
-    .put(updateValidator, controller.updateTeacher)
-    .delete(deleteValidator,controller.deleteTeacher);
+    .get(isAdmin,updateValidator,validateResult,controller.getTeacherById)
+    .delete(isAdmin,deleteValidator,validateResult,deleteValidator,controller.deleteTeacher);
+
+ router.patch("/teachers/editMyprofile",isTeacher,updateValidator, controller.updateTeacher)
 
     
     module.exports = router;

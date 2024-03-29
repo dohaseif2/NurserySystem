@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-// const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const teacherSchema = new mongoose.Schema({
     fullName: { type: String },
@@ -10,5 +9,4 @@ const teacherSchema = new mongoose.Schema({
     role: { type: String }
 });
 
-// teacherSchema.plugin(AutoIncrement, { id: 'teacher_counter' });
 module.exports = mongoose.model('Teacher', teacherSchema);
