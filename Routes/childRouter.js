@@ -15,9 +15,7 @@ router
 
 router 
     .route("/child/:id")
-    .get(isAdmin,controller.getChildById)
-    .put(isAdmin,updateValidator,validateResult, controller.updateChild)
-    .delete(isAdmin,deleteValidator,validateResult,controller.deleteChild);
+    .get(isAdmin,controller.getChildById);
 
 module.exports = router;
 

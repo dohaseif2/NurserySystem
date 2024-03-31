@@ -4,7 +4,7 @@ const Child = require("../Models/childSchema");
 exports.getAllClass = (req, res, next) => {
     Class.find({}).populate({path:"supervisor"}).populate({path:"children"})
     .then(data=>{
-        res.status(200).json({ data});
+        res.status(200).json({  data:" all classes in system",data});
     })
     .catch((error)=>next(error));
 };
@@ -14,7 +14,7 @@ exports.getClassById = (req, res, next) => {
         if (teacher == null) {
             return res.status(404).json({ error: "class not found" });
           }
-        res.status(200).json({ data});
+        res.status(200).json({ data:"class is found",data});
     })
     .catch((error)=>next(error));
 };
@@ -49,19 +49,20 @@ exports.updateClass = (req, res, next) => {
           if (!data) {
             throw new Error("Class is not found");
           }
-          res.status(200).json({ data: "Updated" });
+          res.status(200).json({ data: "Class is updated successfully" });
         })
-        .catch((error) => next(error));};
+        .catch((error) => next(error));
+};
 
 exports.deleteClass = (req, res, next) => {
     Class.findByIdAndDelete(req.body.id)
     .then((data) => {
       if (data == null) throw new Error("Class is not found ");
-      res.status(200).json({ data: "deleted" });
+      res.status(200).json({ data: "Class is deleted successfully" });
     })
     .catch((error) => next(error));
 
-  res.status(200).json({ data: "deleted" });
+  res.status(200).json({ data: "Class is deleted successfully" });
 };
 
 

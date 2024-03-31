@@ -6,7 +6,7 @@ const saltRounds = 10;
 exports.getAllTeachers = (req, res, next) => {
   Teacher.find({})
     .then((data) => {
-      res.status(200).json({ data });
+      res.status(200).json({ data :" all teachers in system",data});
     })
     .catch((error) => next(error));
 };
@@ -14,9 +14,9 @@ exports.getTeacherById = (req, res, next) => {
   Teacher.findOne({})
     .then((teacher) => {
       if (teacher == null) {
-        return res.status(404).json({ error: "teacher not found" });
+        return res.status(404).json({ error: "Teacher not found" });
       }
-      res.status(200).json({ teacher });
+      res.status(200).json({ data:"Teacher is found",teacher });
     })
     .catch((error) => next(error));
 };
@@ -39,7 +39,7 @@ exports.insertTeacher = (req, res, next) => {
 
     teacher.save()
       .then((data) => {
-        res.status(200).json({ data: "Teacher added successfully", data });
+        res.status(200).json({ data: "Teacher is added successfully", data });
       })
       .catch((error) => {
         next(error);
@@ -64,7 +64,7 @@ exports.updateTeacher = (req, res, next) => {
       if (!data) {
         throw new Error("Teacher is not found");
       }
-      res.status(200).json({ data: "Updated" });
+      res.status(200).json({ data: "Teacher is updated successfully" });
     })
     .catch((error) => next(error));
 };
@@ -73,7 +73,7 @@ exports.deleteTeacher = (req, res, next) => {
   Teacher.findByIdAndDelete(req.body.id)
     .then((data) => {
       if (data == null) throw new Error("Teacher is not found ");
-      res.status(200).json({ data: "deleted" });
+      res.status(200).json({ data: "Teacher is deleted successfully" });
     })
     .catch((error) => next(error));
 
@@ -114,7 +114,7 @@ exports.changePassword = async (req, res, next) => {
 
     await Teacher.findByIdAndUpdate(id, { password: hashedNewPassword });
 
-    res.status(200).json({ message: "Password changed successfully" });
+    res.status(200).json({ message: "Password is changed successfully" });
   } catch (error) {
     next(error);
   }

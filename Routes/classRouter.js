@@ -21,8 +21,6 @@ router
 router 
     .route("/class/:id")
     .get(isAdmin,controller.getClassById)
-    .put(isAdmin,updateValidator,validateResult, controller.updateClass)
-    .delete(isAdmin,deleteValidator,validateResult,controller.deleteClass);
 
 
 module.exports = router;

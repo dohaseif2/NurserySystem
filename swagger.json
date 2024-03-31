@@ -1,0 +1,559 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Nursery System API",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:8080",
+    "basePath": "/api/v1",
+    "tags": [
+      {
+        "name":"login",
+        "description":"API for login in the system"
+      },
+      {
+        "name": "Teachers",
+        "description": "API for teachers in the system"
+      }
+      ,{
+        "name": "Children",
+        "description": "API for children in the system"
+      },
+      {
+        "name": "Classes",
+        "description": "API for classes in the system"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/teachers": {
+        "post": {
+          "tags": [
+            "Teachers"
+          ],
+          "description": "Create new teacher in system",
+          "parameters": [
+            {
+              "name": "teacher",
+              "in": "body",
+              "description": "Teacher that we want to create",
+              "schema": {
+                "$ref": "#/definitions/Teacher"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Teacher is added successfully",
+              "schema": {
+                "$ref": "#/definitions/Teacher"
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "Teachers"
+          ],
+          "summary": "Get all teacher in system",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type":"array",
+                "items": {
+                  "$ref": "#/definitions/Teacher"
+              }
+              }
+            }
+          }
+        },
+        "patch": {
+            "summary": "Update Teacher with his ID",
+            "tags": [
+              "Teachers"
+            ],
+            "parameters": [
+              {
+                "name": "teacher",
+                "in": "body",
+                "description": "Teacher with new values of properties",
+                "schema": {
+                  "$ref": "#/definitions/Teacher"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Teacher is updated successfully",
+                "schema": {
+                  "$ref": "#/definitions/Teacher"
+                }
+              }
+            }
+          },
+          "delete": {
+            "summary": "Delete Teacher with given ID",
+            "tags": [
+              "Teachers"
+            ],
+            "responses": {
+              "200": {
+                "description": "Teacher is deleted successfully",
+                "schema": {
+                  "$ref": "#/definitions/Teacher"
+                }
+              }
+            }
+          }
+      },
+      "/teacher/{teacherId}": {
+        "parameters": [
+          {
+            "name": "teacherId",
+            "in": "path",
+            "required": true,
+            "description": "ID of teacher that we want to find",
+            "type": "string"
+          }
+        ],
+        "get": {
+          "tags": [
+            "Teachers"
+          ],
+          "summary": "Get teacher with given ID",
+          "responses": {
+            "200": {
+              "description": "Teacher is found",
+              "schema": {
+                "$ref": "#/definitions/Teacher"
+              }
+            }
+          }
+        }
+        
+      },
+      
+    "/teachers/supervisors": {
+        "get": {
+            "tags": [
+              "Teachers"
+            ],
+            "summary": "Get all supervisor in system",
+            "responses": {
+              "200": {
+                "description": "OK",
+                "schema": {
+                  "$ref": "#/definitions/Teacher"
+                }
+              }
+            }
+          }
+        },
+        "/teachers/changePassword": {
+
+        "patch": {
+            "summary": "Update Teacher`s password with his ID",
+            "tags": [
+              "Teachers"
+            ],
+            "parameters": [
+              {
+                "name": "teacher",
+                "in": "body",
+                "description": "Teacher with new value of password",
+                "schema": {
+                  "$ref": "#/definitions/Teacher"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Password is changed successfully"
+              }
+            }
+          }
+        },
+
+        "/Child": {
+            "post": {
+              "tags": [
+                "Children"
+              ],
+              "description": "Create new Child in system",
+              "parameters": [
+                {
+                  "name": "child",
+                  "in": "body",
+                  "description": "Child that we want to create",
+                  "schema": {
+                    "$ref": "#/definitions/Child"
+                  }
+                }
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "Child added successfully",
+                  "schema": {
+                    "$ref": "#/definitions/Child"
+                  }
+                }
+              }
+            },
+            "get": {
+              "tags": [
+                "Children"
+              ],
+              "summary": "Get all child in system",
+              "responses": {
+                "200": {
+                  "description": "OK",
+                  "schema": {
+                    "type":"array",
+                    "items": {
+                      "$ref": "#/definitions/Teacher"
+                  }
+                  }
+                }
+              }
+            }
+          },
+          "/Child/{childId}": {
+            "parameters": [
+              {
+                "name": "childId",
+                "in": "path",
+                "required": true,
+                "description": "ID of child that we want to find",
+                "type": "string"
+              }
+            ],
+            "get": {
+              "tags": [
+                "Children"
+              ],
+              "summary": "Get child with given ID",
+              "responses": {
+                "200": {
+                  "description": "Child is found",
+                  "schema": {
+                    "$ref": "#/definitions/Child"
+                  }
+                }
+              }
+            },
+            "delete": {
+              "summary": "Delete Child with given ID",
+              "tags": [
+                "Children"
+              ],
+              "responses": {
+                "200": {
+                  "description": "Child deleted successfully",
+                  "schema": {
+                    "$ref": "#/definitions/Child"
+                  }
+                }
+              }
+            },
+            "put": {
+                "summary": "Update Child with given ID",
+                "tags": [
+                  "Children"
+                ],
+                "responses": {
+                  "200": {
+                    "description": "child updated successfully",
+                    "schema": {
+                      "$ref": "#/definitions/Child"
+                    }
+                  }
+                }
+              }
+          },
+
+
+
+          "/class": {
+            "post": {
+              "tags": [
+                "Classes"
+              ],
+              "description": "Create new Class in system",
+              "parameters": [
+                {
+                  "name": "Class",
+                  "in": "body",
+                  "description": "Class that we want to create",
+                  "schema": {
+                    "$ref": "#/definitions/Class"
+                  }
+                }
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "New Class is created",
+                  "schema": {
+                    "$ref": "#/definitions/Class"
+                  }
+                }
+              }
+            },
+            "get": {
+              "tags": [
+                "Classes"
+              ],
+              "summary": "Get all class in system",
+              "responses": {
+                "200": {
+                  "description": "OK",
+                  "schema": {
+                    "type":"array",
+                    "items": {
+                      "$ref": "#/definitions/Teacher"
+                  }
+                  }
+                }
+              }
+            }
+          },
+          "/class/{classId}": {
+            "parameters": [
+              {
+                "name": "classId",
+                "in": "path",
+                "required": true,
+                "description": "ID of class that we want to find",
+                "type": "string"
+              }
+            ],
+            "get": {
+              "tags": [
+                "Classes"
+              ],
+              "summary": "Get child with given ID",
+              "responses": {
+                "200": {
+                  "description": "Class is found",
+                  "schema": {
+                    "$ref": "#/definitions/Class"
+                  }
+                }
+              }
+            },
+            "delete": {
+              "summary": "Delete Class with given ID",
+              "tags": [
+                "Classes"
+              ],
+              "responses": {
+                "200": {
+                  "description": "Class is deleted successfully",
+                  "schema": {
+                    "$ref": "#/definitions/Class"
+                  }
+                }
+              }
+            },
+            "put": {
+                "summary": "Update Class with given ID",
+                "tags": [
+                  "Classes"
+                ],
+                "responses": {
+                  "200": {
+                    "description": "Class is updated successfully",
+                    "schema": {
+                      "$ref": "#/definitions/Class"
+                    }
+                  }
+                }
+              }
+          },
+        "/class/child/{id}": {
+          "get": {
+            "tags": [
+              "Classes"
+            ],
+            "summary": "Get class`s childern with given class ID",
+            "responses": {
+              "200": {
+                "schema": {
+                  "$ref": "#/definitions/Class"
+                }
+              }
+            }
+          }
+        },
+        "/class/teacher/{id}": {
+            "get": {
+              "tags": [
+                "Classes"
+              ],
+              "summary": "Get class`s supervisor with given class ID",
+              "responses": {
+                "200": {
+                  "schema": {
+                    "$ref": "#/definitions/Class"
+                  }
+                }
+              }
+            }
+          },
+          "/login": {
+            "post": {
+              "tags": [
+                "login"
+              ],
+              "description": "user login",
+              "parameters": [
+                {
+                  "name": "user",
+                  "in": "body",
+                  "description": "user that want to login",
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "fullname": {
+                        "type": "string"
+                      },
+                      "password": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "Admin or teacher logged in successfully",
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                        "teacher": {
+                            "$ref": "#/definitions/Teacher"
+                        },
+                        "token": {
+                            "type": "string",
+                            "description": "Authentication token for the logged-in user"
+                        }
+                    }
+                  }
+                }
+              }
+            }
+          }
+    },
+    "definitions": {
+      "Teacher": {
+        "required": [
+          "email",
+          "_id"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          "email": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          },
+          "supervisor": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          }
+        }
+      },
+     
+
+      "Child": {
+        "required": [
+          "_id"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          },
+          "level": {
+            "type": "string",
+            "enum": ["PreKG", "KG1", "KG2"]
+
+          },
+          "address.city": {
+            "type": "string"
+          },
+          "address.street": {
+            "type": "string"
+          },
+          "address.building": {
+            "type": "number"
+          }
+        }
+      },
+      "Class": {
+        "required": [
+          "_id"
+        ],
+        "properties": {
+          "_id": {
+            "type": "number",
+            "uniqueItems": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "supervisor": {
+            "type": "number"
+          },
+          "children": {
+            "type": "number"
+          }
+        }
+      }
+    }
+    
+    
+  }

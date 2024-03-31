@@ -7,6 +7,10 @@ const multer = require("multer");
 const path = require("path");
 require('dotenv').config();
 
+var swaggerUi = require("swagger-ui-express");
+var swaggerDocument = require("./swagger.json");
+
+
 /********routers */
 const teacherRoute = require('./Routes/teacherRouter'); 
 const childRoute = require('./Routes/childRouter');
@@ -56,6 +60,7 @@ app.use(teacherRoute);
 app.use(childRoute);
 app.use(classRoute);
 
+app.use('/swagger',swaggerUi.serve,swaggerUi.setup(swaggerDocument));
 app.use((req,res)=>{
     res.status(404).json({data:"Not found"});
 });

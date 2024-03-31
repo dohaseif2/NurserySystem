@@ -20,9 +20,5 @@ router
 router 
     .route("/teachers/:id")
     .get(isAdmin,updateValidator,validateResult,controller.getTeacherById)
-    .delete(isAdmin,deleteValidator,validateResult,deleteValidator,controller.deleteTeacher);
-
- router.patch("/teachers/editMyprofile",isTeacher,updateValidator, controller.updateTeacher)
-
     
     module.exports = router;
