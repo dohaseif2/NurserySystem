@@ -11,7 +11,7 @@ git clone https://github.com/yourusername/nurserySystem.git <br><br>
 cd nursery-management-system <br>
 npm install 
 <br><br>
-**3- Create a .env file and add the following variables:** 
+**3- Create a .env file and add the following variables:** <br>
 SECRET_KEY=your_secret_key <br>
 DB_URL=your_mongodb_connection_string <br>
 PORT=3000 <br>
