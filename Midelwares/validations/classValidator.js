@@ -1,7 +1,6 @@
 const { body } = require("express-validator");
 
 exports.insertValidator = [
-    body("name").isString().withMessage("Class name should be string"),
     body("children").isArray().withMessage("Children should be array of child IDs"),
     body("children.*").isInt().withMessage("Each child ID should be integer")
 ];
@@ -9,7 +8,6 @@ exports.insertValidator = [
 exports.updateValidator = [
     body("id").isInt().withMessage("Teacher Id should be int"),
     body("name").optional().isString().withMessage("Class name should be string"),
-    body("supervisor").optional().isInt().withMessage("Supervisor ID should be integer"),
     body("children").optional().isArray().withMessage("Children should be array of child IDs"),
     body("children.*").optional().isInt().withMessage("Each child ID should be integer")
 ];

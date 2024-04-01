@@ -20,7 +20,7 @@ router
 
 router 
     .route("/class/:id")
-    .get(isAdmin,controller.getClassById)
+    .get(isAuth,controller.getClassById)
 
 
 module.exports = router;

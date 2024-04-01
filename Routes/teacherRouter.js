@@ -14,11 +14,11 @@ router
     .route("/teachers")
     .get(isAuth,controller.getAllTeachers)
     .post(insertValidator,validateResult, controller.insertTeacher)
-    .put(isAdmin,updateValidator,validateResult,controller.updateTeacher)
+    .put(isTeacher,updateValidator,validateResult,controller.updateTeacher)
     .delete(isAdmin,deleteValidator,validateResult,controller.deleteTeacher)
 
 router 
     .route("/teachers/:id")
-    .get(isAdmin,updateValidator,validateResult,controller.getTeacherById)
+    .get(isAdmin,controller.getTeacherById)
     
     module.exports = router;

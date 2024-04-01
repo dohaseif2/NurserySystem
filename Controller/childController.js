@@ -52,19 +52,14 @@ exports.updateChild = (req, res, next) => {
   let updateData = {
       fullName: req.body.fullName,
       age: req.body.age,
-      level: req.body.level,
-      address: { 
-          city: req.body.address.city,
-          street: req.body.address.street,
-          building: req.body.address.building
-      }
+      level: req.body.level
   };
 
   if (req.file) {
       updateData.image = req.file.filename;
   }
 
-  Child.findByIdAndUpdate(req.params.id, { $set: updateData }, { new: true }) 
+  Child.findByIdAndUpdate(req.body.id, { $set: updateData }, { new: true }) 
       .then(data => {
           if (!data) {
               throw new Error("Child is not found");

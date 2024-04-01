@@ -11,7 +11,7 @@ exports.getAllClass = (req, res, next) => {
 exports.getClassById = (req, res, next) => {
     Class.findOne({})
     .then(data=>{
-        if (teacher == null) {
+        if (data == null) {
             return res.status(404).json({ error: "class not found" });
           }
         res.status(200).json({ data:"class is found",data});
